@@ -475,11 +475,11 @@ body {
 @media (max-width: 1000px) {
     .write {
         grid-template-columns: 1fr;
-        grid-template-rows: 30% 70%;
+        grid-template-rows: 20% 80%;
         grid-template-areas: "title2" "cont2";
     } .content-area {
         grid-template-columns: 1fr;
-        grid-template-rows: 20% 60% 20%;
+        grid-template-rows: 10% 55% 15%;
         grid-template-areas: "logo" "inputcont" "btn";
     } .content-input {
         height: 30vh;
