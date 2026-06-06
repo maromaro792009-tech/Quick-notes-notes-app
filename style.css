@@ -1,0 +1,514 @@
+body {
+    margin: 0;
+    font-family: "Iosevka Charon Mono", monospace;
+    font-weight: 500;
+    font-style: normal;
+    background: rgb(230 230 230);
+    padding-bottom: 20px;
+} :root {
+    --black: rgb(70 70 70);
+    --white: #fff;
+    --offwhite: rgb(210 210 210);
+    --dark-body: rgb(18 18 18);
+    --dark-cards: rgb(30 30 30);
+    --dark-offblack: rgb(40 40 40);
+    --dark-date: rgb(160 160 160);
+    --darks-settings-bar: rgba(255, 255, 255, 0.10);
+    --dark-shadow: rgba(0, 0, 0, 0.55);
+    --dark-text: rgb(235 235 235);
+} .header {
+    position: fixed;
+    width: 100%;
+    height: clamp(4rem, 10vh, 7rem);
+    top: 0;
+    left: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+    background: var(--white);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 4;
+} .logo {
+    font-size: 2em;
+    font-weight: 700;
+    color: var(--black);
+    margin: 0 auto 0 20px;
+} svg {
+    fill: var(--black);
+    width: 3em;
+    height: auto;
+    margin-right: 20px;
+} .settings {
+    width: 2.5em;
+} .search-filter, .search-filter2 {
+    position: absolute;
+    top: 50%;
+    left: 60%;
+    translate: -60% -50%;
+    width: 30%;
+    height: 35px;
+    background: var(--offwhite);
+    border-radius: 22px;
+    border: 1px solid rgba(255, 255, 255, 0.015);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+    padding-left: 20px;
+    font-family: "Iosevka Charon Mono", monospace;
+    font-weight: 500;
+    font-style: normal;
+} .search-icon {
+    position: absolute;
+    top: 50%;
+    left: 71%;
+    translate: -71% -50%;
+    width: 1.2em;
+} .settings:active, .add:active, .edit:active, .remove:active {
+    fill: rgb(120 120 120);
+} .settings:hover, .add:hover, .edit:hover, .remove:hover {
+    transform: scale(1.2);
+    transition: transform 200ms ease-in-out;
+} .search-filter:hover, .title-input:hover, .search-filter2:hover {
+    background: rgb(230 230 230);
+    transition: background 200ms ease-in-out;
+} .note-area {
+    width: 100%;
+    height: auto;
+    margin-top: clamp(4rem, 10vh, 7rem);
+    display: grid;
+    grid-auto-rows: auto;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    justify-items: center;
+    align-items: center;
+    row-gap: 5vh;
+    padding-top: 20px;
+} .note {
+    width: 300px;
+    height: 60vh;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    display: grid;
+    grid-template-columns: 70% 15% 15%;
+    grid-template-rows: 15% 85%;
+    grid-template-areas: "title edit delete""cont cont cont";
+    outline: none;
+    transition: all 200ms ease-in-out;
+    position: relative;
+} .title {
+    grid-area: title;
+    padding-left: 20px;
+    font-weight: 700;
+    font-size: 1.5em;
+    align-content: center;
+    border-bottom: 1px solid var(--black);
+    overflow: hidden;
+    box-sizing: border-box;
+    outline: none;
+} .edit-area {
+    grid-area: edit;
+    border-bottom: 1px solid var(--black);
+    box-sizing: border-box;
+} .delete-area {
+    grid-area: delete;
+    border-bottom: 1px solid var(--black);
+    box-sizing: border-box;
+} .content {
+    grid-area: cont;
+    padding: 10px 20px 20px 20px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    font-size: 1.3em;
+    outline: none;
+    white-space: pre-line;
+} .edit-area, .delete-area {
+    position: relative;
+} .write, .write2 {
+    position: fixed;
+    width: 100%;
+    z-index: 3;
+    inset: 0;
+    margin-top: clamp(4rem, 10vh, 7rem);
+    height: calc(100vh - clamp(4rem, 10vh, 7rem));
+    background: rgb(230 230 230);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 30% 70%;
+    grid-template-areas: "title2 font" "cont2 cont2";
+    transform: translateY(100%);
+    transition: transform 200ms ease-in-out;
+} .write.appear, .write2.show2 {
+    transform: translateY(0);
+} .title-area, .font-area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    gap: 3vw;
+} .title-input {
+    height: 35px;
+    border-radius: 22px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.015);
+    background: var(--offwhite);
+    padding-left: 20px;
+    width: 20vw;
+    font-family: "Iosevka Charon Mono", monospace;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 1.5em;
+} .font-box {
+    width: 30vw;
+    height: 97%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    margin-top: 10px;
+} .font-area {
+    gap: 1vh;
+} .font {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+    transform: scale(0.9);
+    transition: transform 200ms ease-in-out;
+} .font:hover {
+    transform: scale(0.8);
+} .font:active {
+    background: var(--offwhite);
+} .content-input {
+    grid-area: inputcont;
+    border-radius: 12px;
+    width: 65vw;
+    height: 40vh;
+    background: var(--offwhite);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.015);
+    padding-left: 20px;
+    padding-top: 5px;
+    font-size: 1.2em;
+    font-family: "Iosevka Charon Mono", monospace;
+    font-weight: 500;
+    font-style: normal;
+} .title-area {
+    grid-area: title2;
+    gap: 1vw;
+} .font-area {
+    grid-area: font;
+} .content-area {
+    grid-area: cont2;
+} .search-filter, .title-input, .content-input, .search-filter2 {
+    outline: none;
+} .logo2, .logo3 {
+    font-size: clamp(0.5rem, 2em, 1.5rem);
+    font-weight: 700;
+    color: var(--black);
+} .logo3 {
+    grid-area: logo;
+} .btn {
+    grid-area: btn;
+    width: 125px;
+    height: 50px;
+    border-radius: 22px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+    background: var(--black);
+    border: 1px solid rgba(255, 255, 255, 0.015);
+    color: #fff;
+    font-size: 1.2em;
+    transition: transform 200ms ease-in-out;
+    font-family: "Iosevka Charon Mono", monospace;
+    font-weight: 500;
+    font-style: normal;
+} .content-area {
+    display: grid;
+    grid-template-columns: 20% 80%;
+    grid-template-rows: 40% 60%;
+    grid-template-areas: "logo inputcont" "btn inputcont";
+    justify-items: center;
+    align-items: center;
+} .btn:hover {
+    transform: scale(0.9);
+} .btn:active {
+    background: rgb(120 120 120);
+} .note.zoom {
+    position: fixed;
+    inset: 0;
+    margin-top: clamp(4rem, 10vh, 7rem);
+    width: 100%;
+    height: calc(100vh - clamp(4rem, 10vh, 7rem));
+    grid-template-columns: 90% 5% 5%;
+    border-radius: 0;
+    z-index: 2;
+} /*::-webkit-scrollbar {
+    display: none;
+} */.notif {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    align-content: center;
+    text-align: center;
+    font-weight: 700;
+    width: auto;
+    font-size: 2em;
+    color: var(--black);
+    z-index: -1;
+    display: none;
+} .notif.exist {
+    display: block;
+} .pin {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 40px;
+    height: 30px;
+} .pin-icon, .edit, .remove {
+    width: 1.5em;
+    height: auto;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    translate: -50% -50%;
+} .note.zoom .edit, .note.zoom .remove {
+    width: 2.5em
+} .date {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 120px;
+    height: 20px;
+    text-align: center;
+    align-content: center;
+    color: rgb(140 140 140);
+    font-size: 0.7em;
+} .font.font2, .title.font2, .content.font2, .title-input.font2, .content-input.font2 {
+     font-family: "Iosevka Charon Mono", monospace;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 1.3em;
+} .font.font1, .title.font1, .content.font1, .title-input.font1, .content-input.font1 {
+    font-family: system-ui, sans-serif;
+    font-size: 1.3em;
+} .font.font3, .title.font3, .content.font3, .title-input.font3, .content-input.font3 {
+    font-family: "Pacifico", cursive;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 1.3em;
+} .font.font4, .title.font4, .content.font4, .title-input.font4, .content-input.font4 {
+    font-family: "Playwrite GB J", cursive;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
+    font-size: 1.3em;
+} .font.font5, .title.font5, .content.font5, .title-input.font5, .content-input.font5 {
+    font-family: 'Segoe Print', 'Bradley Hand', Chilanka, TSCu_Comic, casual, cursive;
+    font-weight: 500;
+    font-size: 1.3em;
+} .font.font6, .title.font6, .content.font6, .title-input.font6, .content-input.font6 {
+    font-family: "Ubuntu", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 1.3em;
+} .title.font2, .title.font1, .title.font3, .title.font4, .title.font5, .title.font6 {
+    font-size: 1.5em;
+    font-weight: 700;
+} .title.font4 {
+    font-weight: 400;
+} .title.font3 {
+    font-weight: 500;
+} .settings-bar {
+    background: #ffffffcc;
+    width: 225px;
+    height: 250px;
+    position: fixed;
+    inset: 0;
+    margin: 60px 75px auto auto;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.015);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+    z-index: 5;
+    display: none;
+    border-radius: 12px;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+} .settings-bar.open {
+    display: flex;
+} .visibility, .user-select {
+    width: 100%;
+    height: 65px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+} .switch, .switch2 {
+    width: 55px;
+    height: 20px;
+    border-radius: 22px;
+    border: 2px solid rgb(140 140 140);
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    cursor: pointer;
+} .text, .text2 {
+    color: var(--black);
+    font-size: 1.1em;
+    font-family: "Iosevka Charon Mono", monospace;
+    font-weight: 500;
+    font-style: normal;
+} .switch-btn, .switch-btn2 {
+    height: 24px;
+    width: 24px;
+    border-radius: 50%;
+    background: #fff;
+    outline: 2px solid rgb(140 140 140);
+} .switch.active, .switch2.active2 {
+    background: rgb(46, 109, 245);
+    border: none;
+} .switch.active .switch-btn, .switch2.active2 .switch-btn2 {
+    outline: 2px solid rgb(46, 109, 245);
+    margin-left: auto;
+} body.dark, body.dark .write, body.dark .write2 {
+    background: var(--dark-body);
+    color: var(--dark-text);
+} body.dark .header, body.dark .note, body.dark .phone-header {
+    background: var(--dark-cards);
+    box-shadow: 0 8px 20px var(--dark-shadow);
+} body.dark svg {
+    fill: var(--dark-text);
+} body.dark .search-filter, body.dark .title-input, body.dark .content-input, body.dark .search-filter2 {
+    color: var(--dark-text);
+    background: var(--dark-offblack);
+    box-shadow: 0 2px 10px var(--dark-shadow);
+} body.dark .header, body.dark .phone-header {
+    border-bottom: 1px solid var(--dark-offblack)
+} body.dark .date {
+    color: var(--dark-date);
+} body.dark .search-filter::placeholder, body.dark .title-input::placeholder, body.dark .content-input::placeholder, body.dark .search-filter2::placeholder {
+    color: var(--dark-date);
+} body.dark .font {
+    color: var(--dark-text);
+    background: var(--dark-offblack);
+} body.dark .logo2, body.dark .logo3, body.dark .text, body.dark .logo, body.dark .notif, body.dark .text2 {
+    color: var(--dark-text);
+} body.dark .settings-bar {
+    background: var(--darks-settings-bar);
+} body.dark .title, body.dark .edit-area, body.dark .delete-area {
+    border-bottom: 1px solid var(--dark-text);
+} body.select {
+    user-select: none;
+} .text2 {
+    font-size: 0.94em;
+} body.dark .btn {
+    background: var(--dark-text);
+    color: var(--dark-body);
+    box-shadow: 0 4px 15px var(--dark-shadow);
+} .phone-header {
+    display: none;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+    position: fixed;
+    z-index: 2;
+    width: 100%;
+    inset: 0;
+    justify-content: center;
+    align-items: center;
+    margin-top: clamp(4rem, 10vh, 7rem);
+    background: var(--white);
+    height: clamp(3rem, 10vh, 6rem);
+} .search-filter2 {
+    display: none;
+    position: static;
+    translate: 0;
+    height: 25px;
+    width: 50%;
+} .write2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+} .font-btn {
+    border: 2px solid var(--black);
+    color: var(--black);
+    background: transparent;
+    box-sizing: border-box;
+    font-family: "Iosevka Charon Mono", monospace;
+    font-weight: 500;
+    font-style: normal;
+    border-radius: 22px;
+    height: 35px;
+    width: 75%;
+    display: none;
+} body.dark .font-btn {
+    border: 2px solid var(--dark-text);
+    color: var(--dark-text);
+}
+@media (max-width: 550px) {
+    .search-icon, .search-filter {
+        display: none;
+    } .notif {
+        font-size: 1.2em;
+    } .logo {
+        font-size: 1.6em;
+        margin: 0 auto 0 10px;
+    } .settings {
+        width: 2em;
+    } .add {
+        width: 2.5em;
+    } .phone-header {
+        display: flex;
+    } .note-area {
+        margin-top: calc(clamp(4rem, 10vh, 7rem) +  clamp(3rem, 10vh, 6rem));
+    } .search-filter2 {
+        display: block;
+    } .note.zoom {
+        z-index: 2;
+        margin-top: calc(clamp(4rem, 10vh, 7rem) +  clamp(3rem, 10vh, 6rem));
+        height: calc(100vh - clamp(4rem, 10vh, 7rem) - clamp(3rem, 10vh, 6rem));
+    } .header, body.dark .header {
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+    }
+} 
+@media (max-width: 750px) {
+    .note.zoom {
+        grid-template-columns: 60% 20% 20%;
+    }
+}
+@media (max-width: 1000px) {
+    .write {
+        grid-template-columns: 1fr;
+        grid-template-rows: 30% 70%;
+        grid-template-areas: "title2" "cont2";
+    } .content-area {
+        grid-template-columns: 1fr;
+        grid-template-rows: 20% 60% 20%;
+        grid-template-areas: "logo" "inputcont" "btn";
+    } .content-input {
+        height: 30vh;
+        font-size: 1em;
+    } .logo2, .logo3 {
+        font-size: clamp(0.5rem, 1em, 1rem);
+    } .title-input {
+        width: 40vw;
+    } .font-area {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        width: 100%;
+        height: 100vh; 
+    } .font-box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 2vh;
+        width: auto;
+        height: auto;
+    } .font {
+        width: 40vw;
+        height: 10vh;
+    } .font-btn {
+        display: block;
+    } .btn {
+        height: 40px;
+    }
+}
