@@ -114,7 +114,7 @@ body {
     box-sizing: border-box;
 } .content {
     grid-area: cont;
-    padding: 10px 20px 40px 20px;
+    padding: 10px 20px 60px 20px;
     overflow-y: auto;
     overflow-x: hidden;
     font-size: 1.3em;
