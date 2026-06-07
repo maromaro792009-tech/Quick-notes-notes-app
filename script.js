@@ -212,6 +212,20 @@ function dateCreated() {
     return `${time}`
 }
 
+function pinning(noteHold) {
+    hold = setTimeout(() => {
+        noteArea.innerHTML = ""
+        const id = Number(noteHold.dataset.id)
+        const index = notes.findIndex(note => note.id === id)
+        notes[index].selected = !notes[index].selected
+        togglePin(id)
+        notes.forEach(note => {
+        noteUI(note)
+    })
+    localStorage.setItem("notes", JSON.stringify(notes))
+     }, 1500)
+}
+
 noteArea.addEventListener("mousedown", (e) => {
     let edit = e.target.closest(".edit")
     let removeBtn = e.target.closest(".remove")
@@ -242,18 +256,24 @@ noteArea.addEventListener("mousedown", (e) => {
         localStorage.setItem("notes", JSON.stringify(notes))
         closeNote.remove()
     } if (noteHold) {
-        hold = setTimeout(() => {
-        noteArea.innerHTML = ""
-        const id = Number(noteHold.dataset.id)
-        const index = notes.findIndex(note => note.id === id)
-        notes[index].selected = !notes[index].selected
-        togglePin(id)
-        notes.forEach(note => {
-        noteUI(note)
-    })
-    localStorage.setItem("notes", JSON.stringify(notes))
-     }, 1500)
+        pinning(noteHold)
     }
+})
+
+noteArea.addEventListener("touchstart", (e) => {
+    let noteHold = e.target.closest(".note")
+    if (noteHold) {
+        pinning(noteHold)
+    }
+})
+
+noteArea.addEventListener("touchend", () => {
+    clearTimeout(hold)
+    hold = null
+})
+noteArea.addEventListener("touchcancel", () => {
+    clearTimeout(hold)
+    hold = null
 })
 noteArea.addEventListener("mouseup", () => {
     clearTimeout(hold)
