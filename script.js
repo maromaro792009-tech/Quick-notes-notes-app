@@ -255,14 +255,14 @@ noteArea.addEventListener("mousedown", (e) => {
         notes.splice(index, 1)
         localStorage.setItem("notes", JSON.stringify(notes))
         closeNote.remove()
-    } if (noteHold) {
+    } if (noteHold && !noteHold.classList.contains("zoom")) {
         pinning(noteHold)
     }
 })
 
 noteArea.addEventListener("touchstart", (e) => {
     let noteHold = e.target.closest(".note")
-    if (noteHold) {
+    if (noteHold && !noteHold.classList.contains("zoom")) {
         pinning(noteHold)
     }
 })
